@@ -14,7 +14,7 @@ let dy = [1, 0, -1, 0, -1, 1, 1, -1];
 
 function setup() {
 
-    window.canvas = createCanvas(windowWidth - 100, windowHeight);
+    window.canvas = createCanvas(windowWidth, windowHeight);
     canvas.position(0, 0);
     canvas.style('z-index', -1);
 
@@ -25,7 +25,7 @@ function setup() {
     blocksY = 20
     blocksX = 15;
 
-    blockSize = min(canvas.width / blocksX, (canvas.height - 100) / blocksY);
+    blockSize = min(canvas.width / blocksX, (canvas.height) / blocksY);
 
     xOffset = (width - blockSize * blocksX) / 2;
     yOffset = (height - blockSize * blocksY) / 2;
