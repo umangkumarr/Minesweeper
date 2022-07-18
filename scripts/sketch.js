@@ -7,7 +7,8 @@ let blockSize;
 let xOffset;
 let yOffset;
 let maxBlocks = 100;
-let totalBees = 30;
+let totalBees = 40;
+let headerSize = 100
 
 let dx = [0, -1, 0, 1, -1, 1, -1, 1];
 let dy = [1, 0, -1, 0, -1, 1, 1, -1];
@@ -20,15 +21,17 @@ function setup() {
 
     setBlocks();
 
-    blockSize = min(width / blocksX, height / blocksY);
-
     blocksY = 20
     blocksX = 15;
 
-    blockSize = min(canvas.width / blocksX, (canvas.height) / blocksY);
+    blockSize = min(width / blocksX, height / blocksY);
+
+    blockSize = min(canvas.width / blocksX, (canvas.height - headerSize) / blocksY);
+
+    console.log(blockSize)
 
     xOffset = (width - blockSize * blocksX) / 2;
-    yOffset = (height - blockSize * blocksY) / 2;
+    yOffset = (height - blockSize * blocksY) / 2 + headerSize / 8;
 
     let count = 0;
     for (let j = 0; j < blocksY; j++) {
@@ -54,11 +57,11 @@ function setup() {
 function setBlocks() {
     let testBlockSize = 1;
     while (true) {
-        if (floor(canvas.width / testBlockSize) * floor(canvas.height / testBlockSize) < maxBlocks) {
+        if (floor(canvas.width / testBlockSize) * floor((canvas.height - headerSize) / testBlockSize) < maxBlocks) {
 
             blockSize = testBlockSize;
             blocksX = floor(canvas.width / blockSize) - floor(canvas.width / blockSize) % 2;
-            blocksY = floor(canvas.height / blockSize) - floor(canvas.height / blockSize) % 2;
+            blocksY = floor((canvas.height - headerSize) / blockSize) - floor((canvas.height - headerSize) / blockSize) % 2;
             return;
         } else {
             testBlockSize++;
@@ -67,7 +70,7 @@ function setBlocks() {
 }
 
 function draw() {
-    background(255)
+    background(0)
 
     fill(255);
     for (var i = 0; i < grid.length; i++) {

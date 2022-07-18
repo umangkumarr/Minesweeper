@@ -25,10 +25,11 @@ class Cell {
 
 Cell.prototype.show = function () {
 
-    stroke(10);
-    noFill(255);
+    stroke(255);
+    fill(127);
     rect(xOffset + blockSize * this.x, yOffset + blockSize * this.y, blockSize, blockSize);
 
+    push();
     if (this.revealed) {
         if (this.bee) {
             stroke(10);
@@ -36,16 +37,18 @@ Cell.prototype.show = function () {
             ellipse(xOffset + blockSize * this.x + blockSize / 2, yOffset + blockSize * this.y + blockSize / 2, blockSize / 2)
         } else {
 
-            fill(190);
+            fill(61);
             rect(xOffset + blockSize * this.x, yOffset + blockSize * this.y, blockSize, blockSize);
             if (this.neighbours) {
-                fill(0);
+                fill(255);
                 textAlign(CENTER, CENTER);
                 textSize(blockSize * 0.6);
+                textFont('Times New Romanq');
                 text(this.neighbours, xOffset + blockSize * this.x, yOffset + blockSize * this.y, blockSize, blockSize);
             }
         }
     }
+    pop();
 }
 
 Cell.prototype.countBees = function () {
