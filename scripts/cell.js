@@ -7,6 +7,7 @@ class Cell {
         this.revealed = false;
         this.neighbours = Infinity;
         this.edges = [];
+        this.flag = false;
     }
 
     reveal() {
@@ -43,10 +44,12 @@ Cell.prototype.show = function () {
                 fill(255);
                 textAlign(CENTER, CENTER);
                 textSize(blockSize * 0.6);
-                textFont('Times New Romanq');
+                textFont('Times New Roman');
                 text(this.neighbours, xOffset + blockSize * this.x, yOffset + blockSize * this.y, blockSize, blockSize);
             }
         }
+    } else if (this.flag) {
+        image(flag, xOffset + blockSize * this.x, yOffset + blockSize * this.y, blockSize, blockSize);
     }
     pop();
 }

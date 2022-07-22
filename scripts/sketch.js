@@ -12,12 +12,17 @@ let headerSize = 100
 
 let dx = [0, -1, 0, 1, -1, 1, -1, 1];
 let dy = [1, 0, -1, 0, -1, 1, 1, -1];
+let flag;
+
+function preload() {
+    flag = loadImage("flag.png");
+}
 
 function setup() {
 
     window.canvas = createCanvas(windowWidth, windowHeight);
     canvas.position(0, 0);
-    canvas.style('z-index', -1);
+    canvas.elt.addEventListener("contextmenu", (e) => e.preventDefault())
 
     setBlocks();
 
@@ -52,6 +57,18 @@ function setup() {
     for (let j = 0; j < grid.length; j++) {
         grid[j].countBees();
     }
+
+    background(0);
+
+    fill(200);
+    textSize(headerSize / 3);
+    textAlign(CENTER, CENTER);
+    text("Minesweeper", 0, 0, canvas.width, headerSize / 2);
+
+    fill(120);
+    textSize(blockSize * 0.33);
+    textAlign(LEFT, CENTER);
+    text("Right Click - to add Flag*", 20, canvas.height - 30);
 }
 
 function setBlocks() {
@@ -70,7 +87,6 @@ function setBlocks() {
 }
 
 function draw() {
-    background(0)
 
     fill(255);
     for (var i = 0; i < grid.length; i++) {
@@ -86,13 +102,21 @@ function GameOver() {
     }
 }
 
-function mousePressed() {
-    for (let i = 0; i < grid.length; i++) {
-        if (!grid[i].revealed && grid[i].contains(mouseX, mouseY)) {
+function mousePressed(event) {
+    if (mouseButton === LEFT) {
+        for (let i = 0; i < grid.length; i++) {
+            if (!grid[i].revealed && grid[i].contains(mouseX, mouseY)) {
 
-            grid[i].reveal();
-            if (grid[i].bee) {
-                GameOver();
+                grid[i].reveal();
+                if (grid[i].bee) {
+                    GameOver();
+                }
+            }
+        }
+    } else {
+        for (let i = 0; i < grid.length; i++) {
+            if (!grid[i].revealed && grid[i].contains(mouseX, mouseY)) {
+                grid[i].flag = true;
             }
         }
     }
