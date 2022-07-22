@@ -116,7 +116,7 @@ function mousePressed(event) {
     } else {
         for (let i = 0; i < grid.length; i++) {
             if (!grid[i].revealed && grid[i].contains(mouseX, mouseY)) {
-                grid[i].flag = true;
+                grid[i].flag ^= 1;
             }
         }
     }
